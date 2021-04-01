@@ -1,0 +1,159 @@
+{% extends "layout.html" %}
+{% block title %}Generate Comments{% endblock %}
+{% block main_content %}
+<div class="container" style="padding-bottom: 200px">
+    <h1 class="mt-3">Generate Comments</h1>
+    <div class="form-group">
+        <label for="all_comments">Comments</label>
+        <textarea class="form-control" id="all_comments" rows="3" style="min-height:200px"></textarea>
+    </div>
+
+    <div aria-live="polite" aria-atomic="true" style="position: relative; min-height: 90px;">
+        <button class="btn" id="copy_comment" style="background: #FFD8FF">COPY</button>
+        <div class="toast" id="toast1" data-delay="1000"
+             style="background: #FFF5FF; rounded-border: 100px; position: absolute;">
+            <div class="toast-body">
+                COPIED
+            </div>
+        </div>
+        <button class="btn" id="save_comment" style="background: #FFD8FF">SAVE DRAFT</button>
+        <div class="toast" id="toast2" data-delay="1000"
+             style="background: #FFF5FF; rounded-border: 100px; position: absolute; left: 70px;">
+            <div class="toast-body">
+                SAVED
+            </div>
+        </div>
+        <button type="button" class="btn float-right" id="open_last_save" style="background: #FFD8FF">OPEN LAST SAVE
+        </button>
+        <div class="toast float-right" id="toast3" data-delay="1000"
+             style="background: #FFF5FF; rounded-border: 100px; position: absolute; left: 540px;">
+            <div class="toast-body">
+                OPENED LAST SAVE
+            </div>
+        </div>
+    </div>
+    <ul class="nav nav-tabs">
+        <li class="nav-item">
+            <a class="nav-link active" data-toggle="tab" href="#home">Programming assignment</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" data-toggle="tab" href="#menu1">Written assignment</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" data-toggle="tab" href="#menu2">Math assignment</a>
+        </li>
+    </ul>
+    <!--        ------------------------------------------------------------------------->
+    <div class="tab-content">
+        <div class="tab-pane active container" id="home">
+            {% for element in requirements %}
+            {% if element[8] == 1 %}
+            <form id="prog_form_{{ requirements.index(element) }}">
+                <h5 style="color: #270041"><strong>{{ element[9] }}:</strong><a style="font-size:15px"> {{ element[1]
+                    }}</a></h5>
+                <div class="form-check-inline">
+                    <label class="form-check-label">
+                        <input type="radio" class="form-check-input mx-2" name="prog_optradio{{ requirements.index(element) }}" value="1">{{ element[2] }}
+                    </label>
+                    <label class="form-check-label">
+                        <input type="radio" class="form-check-input mx-2" name="prog_optradio{{ requirements.index(element) }}" value="2">{{ element[3] }}
+                    </label>
+                    <label class="form-check-label">
+                        <input type="radio" class="form-check-input mx-2" name="prog_optradio{{ requirements.index(element) }}" value="3">{{ element[4] }}
+                    </label>
+                    <label class="form-check-label">
+                        <input type="radio" class="form-check-input mx-2" name="prog_optradio{{ requirements.index(element) }}" value="4">{{ element[5] }}
+                    </label>
+                    <!--                    <button class="btn mx-2 text-white" type="button" style="background: #FF0BAF"><i-->
+                    <!--                            class="fa fa-product-hunt mx-2"></i>-->
+                    <!--                    </button>-->
+                    <button class="btn mx-2 text-white" type="button"
+                            id="add-comment-prog{{ requirements.index(element) }}" style="background: #FF0BAF"><i
+                            class="fa fa-plus-square mx-2"></i>
+                    </button>
+                </div>
+                <select class="form-control" id="select_prog_{{ requirements.index(element) }}">
+                </select>
+                <div id="proposed_line_structure_prog{{ requirements.index(element) }}"></div>
+
+            </form>
+            {% endif %}
+            {% endfor %}
+
+        </div>
+        <!--        ------------------------------------------------------------------------->
+        <div class="tab-pane container" id="menu1">
+            {% for element in requirements %}
+            {% if element[6] == 1 %}
+            <form id="written_form_{{ requirements.index(element) }}">
+                <h5 style="color: #270041"><strong>{{ element[9] }}:</strong><a style="font-size:15px"> {{ element[1]
+                    }}</a></h5>
+                <div class="form-check-inline">
+                    <label class="form-check-label">
+                        <input type="radio" class="form-check-input mx-2" name="written_optradio{{ requirements.index(element) }}" value="1">{{ element[2] }}
+                    </label>
+                    <label class="form-check-label">
+                        <input type="radio" class="form-check-input mx-2" name="written_optradio{{ requirements.index(element) }}" value="2">{{ element[3] }}
+                    </label>
+                    <label class="form-check-label">
+                        <input type="radio" class="form-check-input mx-2" name="written_optradio{{ requirements.index(element) }}" value="3">{{ element[4] }}
+                    </label>
+                    <label class="form-check-label">
+                        <input type="radio" class="form-check-input mx-2" name="written_optradio{{ requirements.index(element) }}" value="4">{{ element[5] }}
+                    </label>
+                    <!--                    <button class="btn mx-2 text-white" type="button" style="background: #FF0BAF"><i-->
+                    <!--                            class="fa fa-product-hunt mx-2"></i>-->
+                    <!--                    </button>-->
+                    <button class="btn mx-2 text-white" type="button"
+                            id="add-comment-written{{ requirements.index(element) }}" style="background: #FF0BAF"><i
+                            class="fa fa-plus-square mx-2"></i>
+                    </button>
+                </div>
+                <select class="form-control" id="select_written_{{ requirements.index(element) }}">
+
+                </select>
+                <div id="proposed_line_structure_written{{ requirements.index(element) }}"></div>
+            </form>
+            {% endif %}
+            {% endfor %}
+        </div>
+        <!--        ------------------------------------------------------------------------->
+
+        <div class="tab-pane container" id="menu2">
+            {% for element in requirements %}
+            {% if element[7] == 1 %}
+            <form id="math_form_{{ requirements.index(element) }}">
+                <h5 style="color: #270041"><strong>{{ element[9] }}:</strong><a style="font-size:15px"> {{ element[1]
+                    }}</a></h5>
+                <div class="form-check-inline">
+                    <label class="form-check-label">
+                        <input type="radio" class="form-check-input mx-2" name="math_optradio{{ requirements.index(element) }}" value="1">{{ element[2] }}
+                    </label>
+                    <label class="form-check-label">
+                        <input type="radio" class="form-check-input mx-2" name="math_optradio{{ requirements.index(element) }}" value="2">{{ element[3] }}
+                    </label>
+                    <label class="form-check-label">
+                        <input type="radio" class="form-check-input mx-2" name="math_optradio{{ requirements.index(element) }}" value="3">{{ element[4] }}
+                    </label>
+                    <label class="form-check-label">
+                        <input type="radio" class="form-check-input mx-2" name="math_optradio{{ requirements.index(element) }}" value="4">{{ element[5] }}
+                    </label>
+                    <!--                    <button class="btn mx-2 text-white" type="button" style="background: #FF0BAF"><i-->
+                    <!--                            class="fa fa-product-hunt mx-2"></i>-->
+                    <!--                    </button>-->
+                    <button class="btn mx-2 text-white" type="button"
+                            id="add-comment-math{{ requirements.index(element) }}" style="background: #FF0BAF"><i
+                            class="fa fa-plus-square mx-2"></i>
+                    </button>
+                </div>
+                <select class="form-control" id="select_math_{{ requirements.index(element) }}">
+
+                </select>
+                <div id="proposed_line_structure_math{{ requirements.index(element) }}"></div>
+            </form>
+            {% endif %}
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}
