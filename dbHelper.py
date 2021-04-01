@@ -67,7 +67,7 @@ class Comment(Main):
         self.programming = programming_arg
         self.grade_of_excellence = grade_of_excellence_arg
 
-    def to_string(self):
+    def __str__(self):
         return f"{self.comment}, {self.type_comment}, {int(self.written)}, {int(self.math)}, {int(self.programming)}, {self.grade_of_excellence}."
 
     def add_comment(self):
@@ -108,6 +108,9 @@ class Requirements(Main):
         self.programming = programming_arg
         self.math = math_arg
         self.template_type = type_arg
+
+    def __str__(self):
+        return f"{self.requirement}, {self.best}, {self.good},{self.bad}, {self.worst}, {self.written},{self.programming}, {self.math}, {self.template_type}"
 
     def add_requirement(self):
         query1 = """CREATE TABLE IF NOT EXISTS requirements (id INTEGER PRIMARY KEY AUTOINCREMENT, requirement TEXT NOT NULL, best TEXT NOT NULL, good TEXT NOT NULL, bad TEXT NOT NULL, worst TEXT NOT NULL, written INTEGER NOT NULL, math INTEGER NOT NULL, programming INTEGER NOT NULL, type TEXT NOT NULL)"""
