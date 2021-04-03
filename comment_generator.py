@@ -25,6 +25,7 @@ Using comments from someone else without proper citing is also considered plagia
 
 from flask import Flask, render_template, request, redirect, url_for, session
 import dbHelper
+import gunicorn
 
 app = Flask(__name__)
 
