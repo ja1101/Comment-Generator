@@ -28,6 +28,8 @@ import dbHelper
 import gunicorn
 
 app = Flask(__name__)
+# The session object needs a secret key
+app.secret_key = "HopKIdf78/*9*PO72xQ89Fg??"
 
 
 @app.route('/intro', methods=['GET', 'POST'])
