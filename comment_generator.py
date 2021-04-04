@@ -265,7 +265,5 @@ def internal_server_error(e):
 
 
 if __name__ == '__main__':
-    # The session object needs a secret key
-    app.secret_key = "HopKIdf78/*9*PO72xQ89Fg??"
     # Turn debug mode on if you want to troubleshoot.
     app.run(debug=False, port="5555")
